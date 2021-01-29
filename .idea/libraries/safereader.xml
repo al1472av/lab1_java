@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="safereader">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/safereader.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
