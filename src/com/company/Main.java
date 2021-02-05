@@ -10,7 +10,7 @@ import static java.lang.System.out;
 
 public class Main {
 
-    private static Scanner in = new Scanner(System.in);
+    public static ITaskSolver[] Tasks = {new Task0(), new Task1(), new Task2(), new Task3(), new Task4(), new Task5()};
 
     public static void main(String[] args) {
         while (true)
@@ -19,34 +19,38 @@ public class Main {
 
     private static void drawMenu() {
         out.println("1\n2\n3\n4\n5\n0 - exit");
+        int task;
 
-        int page = SafeReader.readInt();
+        do {
+            task = SafeReader.readInt();
+            if (task < 0 || task >= Tasks.length) {
+                out.println("Incorrect value");
+                continue;
+            }
+            break;
 
-        switch (page) {
-            case 0:
-                exit(0);
-                break;
-            case 1:
-                task1();
-                break;
-            case 2:
-                task2();
-                break;
-            case 3:
-                task3();
-                break;
-            case 4:
-                task4();
-                break;
-            case 5:
-                task5();
-                break;
-        }
+        } while (true);
 
+        Tasks[task].SolveTask();
     }
 
-    private static void task1() {
+}
 
+interface ITaskSolver {
+    void SolveTask();
+}
+
+class Task0 implements ITaskSolver {
+
+    public void SolveTask() {
+        exit(0);
+    }
+}
+
+class Task1 implements ITaskSolver {
+
+    public void SolveTask() {
+        Scanner in = new Scanner(System.in);
         out.println("Input 2 values");
         double x = SafeReader.readDouble();
         double y = SafeReader.readDouble();
@@ -56,11 +60,13 @@ public class Main {
         out.println("Result: " + result + "\nPress any key to go back\n");
 
         in.nextLine();
-
     }
+}
 
-    private static void task2() {
+class Task2 implements ITaskSolver {
 
+    public void SolveTask() {
+        Scanner in = new Scanner(System.in);
         out.println("Print 3 numbers");
 
         double[] inputs = new double[3];
@@ -78,8 +84,12 @@ public class Main {
 
         in.nextLine();
     }
+}
 
-    private static void task3() {
+class Task3 implements ITaskSolver {
+
+    public void SolveTask() {
+        Scanner in = new Scanner(System.in);
         out.println("Input epsilon");
 
         double epsilon = SafeReader.readDouble();
@@ -88,8 +98,7 @@ public class Main {
         double sum = 1 / (2 * k - 1) * (2 * k + 1);
         out.println(sum);
 
-        while (sum < epsilon)
-        {
+        while (sum < epsilon) {
             k++;
             sum += 1 / (2 * k - 1) * (2 * k + 1);
             out.println(sum);
@@ -99,9 +108,12 @@ public class Main {
 
         in.nextLine();
     }
+}
 
-    private static void task4() {
+class Task4 implements ITaskSolver {
 
+    public void SolveTask() {
+        Scanner in = new Scanner(System.in);
         double[] inputs = new double[16];
         double min = Double.MAX_VALUE;
 
@@ -118,9 +130,12 @@ public class Main {
 
         in.nextLine();
     }
+}
 
-    private static void task5() {
+class Task5 implements ITaskSolver {
 
+    public void SolveTask() {
+        Scanner in = new Scanner(System.in);
         for (int i = 0; i <= 10; i++)
             out.println("X at " + i + " = " + calculate(i));
 
@@ -128,80 +143,72 @@ public class Main {
         in.nextLine();
     }
 
-    private static double calculate(double x) {
+    private double calculate(double x) {
         return x - (Math.pow(x, 3) / 6) + (Math.pow(x, 5) / 120);
     }
-}
 
+}
 
 class SafeReader {
 
-    private static BufferedReader in = new BufferedReader( new InputStreamReader(System.in));
+    private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-    public static int readInt()
-    {
+    public static int readInt() {
         int input = 0;
 
         do {
             try {
                 input = Integer.parseInt(in.readLine());
                 break;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong input. Expected type: Integer. Try again");
             }
-        }while (true);
+        } while (true);
 
         return input;
     }
 
-    public static double readDouble()
-    {
+    public static double readDouble() {
         double input = 0;
 
         do {
             try {
                 input = Double.parseDouble(in.readLine());
                 break;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong input. Expected type: Double. Try again");
             }
-        }while (true);
+        } while (true);
 
         return input;
     }
 
-    public static float readFloat()
-    {
+    public static float readFloat() {
         float input = 0;
 
         do {
             try {
                 input = Float.parseFloat(in.readLine());
                 break;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong input. Expected type: Float. Try again");
             }
-        }while (true);
+        } while (true);
 
         return input;
     }
 
-    public static String readString()
-    {
+    public static String readString() {
         String input = "";
 
         do {
             try {
                 input = in.readLine();
                 break;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong input. Try again");
             }
-        }while (true);
+        } while (true);
 
         return input;
     }
